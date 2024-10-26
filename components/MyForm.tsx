@@ -1,75 +1,92 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const MyForm: React.FC = () => {
-  // Define state with type annotations
   const [name, setName] = useState<string>('');
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-  // Type the onSubmit function
   const onSubmit = (): void => {
-    // Handle form submission logic here
-    console.log({ name, date, category, notes });
+    console.log({ name, date, category, notes }); // Handle form submission logic here
+    setName('');
+    setDate(new Date());
+    setCategory('');
+    setNotes('');
+    setModalVisible(false); // Close modal after submission
   };
 
   return (
     <View style={styles.container}>
-      {/* Banner Section */}
-      <View style={styles.banner}>
+      <TouchableOpacity style={styles.banner} onPress={() => setModalVisible(true)}>
         <Text style={styles.bannerText}>Enter a new expense</Text>
-      </View>
-      
-      <Text style={styles.label}>Name:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter name"
-        value={name}
-        onChangeText={setName}
-      />
-
-      <Text style={styles.label}>Date:</Text>
-      <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-        <Text style={styles.dateInput}>{date.toDateString()}</Text>
       </TouchableOpacity>
-      {showDatePicker && (
-        <DateTimePicker
-          value={date}
-          mode="date"
-          display="default"
-          onChange={(event: any, selectedDate?: Date) => {
-            setShowDatePicker(false);
-            if (selectedDate) setDate(selectedDate);
-          }}
-        />
-      )}
 
-      <Text style={styles.label}>Category:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter category"
-        value={category}
-        onChangeText={setCategory}
-      />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)} // Handle hardware back button
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.label}>Name:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter name"
+              value={name}
+              onChangeText={setName}
+            />
 
-      <Text style={styles.label}>Notes:</Text>
-      <TextInput
-        style={[styles.input, styles.notesInput]}
-        placeholder="Enter notes"
-        value={notes}
-        onChangeText={setNotes}
-        multiline
-      />
+            <Text style={styles.label}>Date:</Text>
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <Text style={styles.dateInput}>{date.toDateString()}</Text>
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="default"
+                onChange={(event: any, selectedDate?: Date) => {
+                  const currentDate = selectedDate || date; // Use selected date or current date
+                  setShowDatePicker(false); // Close the picker after selection
+                  setDate(currentDate); // Update the date state
+                }}
+              />
+            )}
 
-      <Button title="Submit" onPress={onSubmit} />
+            <Text style={styles.label}>Category:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter category"
+              value={category}
+              onChangeText={setCategory}
+            />
+
+            <Text style={styles.label}>Notes:</Text>
+            <TextInput
+              style={[styles.input, styles.notesInput]}
+              placeholder="Enter notes"
+              value={notes}
+              onChangeText={setNotes}
+              multiline
+            />
+
+            <View style={styles.buttonContainer}>
+              <Button title="Cancel" onPress={() => setModalVisible(false)} color="red" />
+              <View style={styles.buttonSpacer} />
+              <Button title="Submit" onPress={onSubmit} />
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
 
-// Define styles with a StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -81,16 +98,29 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   banner: {
-    backgroundColor: '#E6E6FA', // pale purple
+    backgroundColor: '#E6E6FA',
     padding: 15,
     alignItems: 'center',
-    width: '100%', // Make the banner span the whole width
+    width: '100%',
     top: 0,
   },
   bannerText: {
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 5,
   },
   input: {
     borderWidth: 1,
@@ -110,6 +140,14 @@ const styles = StyleSheet.create({
   notesInput: {
     height: 80,
     textAlignVertical: 'top',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  buttonSpacer: {
+    width: 16,
   },
 });
 

@@ -30,10 +30,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="add-new"
         options={{
-          title: "Scan",
+          title: "Track",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "scan" : "scan-outline"}
+              name={focused ? "pencil" : "pencil-outline"}
               color={color}
             />
           ),

@@ -9,6 +9,7 @@
     }
   },
   "include": [
+    "app/**/*", // my addition
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",

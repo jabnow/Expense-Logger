@@ -1,66 +1,79 @@
+import React, { useState } from "react";
 import {
   Image,
   StyleSheet,
-  Platform,
-  ScrollView,
   View,
   SafeAreaView,
+  Button,
+  Modal,
+  Pressable,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
+import * as ImagePicker from "expo-image-picker";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import SuccessModal from "../../components/SuccessModal";
 import { HelloWave } from "@/components/HelloWave";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import MyForm from "@/components/MyForm";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { TabView, SceneMap } from "react-native-tab-view";
-import { useState } from "react";
 import UploadImage from "@/components/UploadImage";
+import Index from "../tessaract";
 
 const Tab = createMaterialTopTabNavigator();
 
-const SubTab1: React.FC = () => (
-  <ThemedView style={styles.subTabContainer}>
-    <ThemedText type="default">hello world</ThemedText>
-    <HelloWave />
-  </ThemedView>
-);
-
-const SubTab2: React.FC = () => (
-  <ThemedView style={styles.subTabContainer}>
-    <UploadImage />
-  </ThemedView>
-);
-
-const SubTab3: React.FC = () => (
-  <ThemedView style={styles.subTabContainer}>
-    <MyForm />
-  </ThemedView>
-);
-
-const renderScene = SceneMap({
-  first: SubTab1,
-  second: SubTab2,
-  third: SubTab3,
-});
-
-export default function Track() {
+const Track = () => {
+  const [image, setImage] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
   const [routes] = useState([
-    { key: "first", title: "First" },
-    { key: "second", title: "Second" },
+    { key: "scanReceipt", title: "Scan Receipt" },
+    { key: "uploadPhoto", title: "Upload Photo" },
+    { key: "enterManually", title: "Enter Manually" },
   ]);
+
+  // Function to capture a photo with the camera
+  const takePhoto = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      alert("Permission to access the camera is required!");
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      setImage(result.assets[0].uri);
+      setModalVisible(true);
+    }
+  };
+
+  const SubTab1 = () => (
+    <ThemedView style={styles.subTabContainer}>
+      <Button title="Take a Photo" onPress={takePhoto} />
+    </ThemedView>
+  );
+
+  const SubTab2 = () => (
+    <ThemedView style={styles.subTabContainer}>
+      <UploadImage />
+    </ThemedView>
+  );
+
+  const SubTab3 = () => (
+    <ThemedView style={styles.subTabContainer}>
+      <MyForm />
+    </ThemedView>
+  );
 
   return (
     <>
       <ThemedText style={styles.titleContainer}>
-        {"\n"}
-        {"\n"}
-        {"\n"}
-        <ThemedText type="title"> Add New Expense</ThemedText>
-        {"\n"}
+        <ThemedText type="title">Add New Expense</ThemedText>
       </ThemedText>
+      
       <Tab.Navigator
         screenOptions={{
           tabBarActiveTintColor: "#66999b",
@@ -70,52 +83,28 @@ export default function Track() {
         <Tab.Screen
           name="Scan Receipt"
           component={SubTab1}
-          options={{ title: "Scan Receipt" }}
         />
         <Tab.Screen
           name="Upload Photo"
           component={SubTab2}
-          options={{ title: "Upload Photo" }}
         />
         <Tab.Screen
-          name="Enter manually"
-          component={MyForm}
-          options={{ title: "Enter manually" }}
+          name="Enter Manually"
+          component={SubTab3}
         />
       </Tab.Navigator>
-
-      {/* // <Ionicons size={310} name="pencil" style={styles.headerImage} />
-    //   <TabView
-    //   navigationState={{ index, routes }}
-    //   renderScene={renderScene}
-    //   onIndexChange={setIndex}
-    //   /> */}
+      <SuccessModal setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+      {image && <Index imageName={image} />} 
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-  },
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+    marginVertical: 20,
   },
   subTabContainer: {
     flex: 1,
@@ -123,3 +112,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+export default Track;

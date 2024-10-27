@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-import { Text, View } from "react-native";
 import Tesseract from "tesseract.js";
 
-export default function Index() {
+// Define the Index component to accept props
+export default function Index({ imageName }: { imageName: string }) {
   useEffect(() => {
     const recognizeText = async () => {
       try {
         const {
           data: { text },
         } = await Tesseract.recognize(
-          "../lol.jpeg", // Provide the correct path to the image
+          imageName, // Use the imageName prop
           "eng",
           { logger: (m) => console.log(m) }
         );
@@ -19,18 +19,10 @@ export default function Index() {
       }
     };
 
-    recognizeText(); // Call the function to initiate OCR
-  }, []);
+    if (imageName) {
+      recognizeText(); // Call the function to initiate OCR if imageName is valid
+    }
+  }, [imageName]); // Add imageName as a dependency
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit llxxl/index.tsx to edit this sc???reen.</Text>
-    </View>
-  );
+  return null; // Or render some JSX if needed
 }

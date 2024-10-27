@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, View, Text, Pressable, StyleSheet } from "react-native";
+import MyForm from "./MyForm";
 
 interface Props {
   modalVisible: boolean;
@@ -17,6 +18,7 @@ const SuccessModal: React.FC<Props> = ({ modalVisible, setModalVisible }) => {
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalText}>Photo successfully taken!</Text>
+          <MyForm disableNotes={true} disableSubmit={true}/>
           <Pressable
             style={styles.button}
             onPress={() => setModalVisible(false)} // Hide the modal

@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const MyForm: React.FC = () => {
+
+interface MyFormProps {
+  disableNotes?: boolean; // Add a prop to control the notes input
+  disableSubmit?: boolean;
+}
+
+const MyForm: React.FC <MyFormProps> = ({ disableNotes, disableSubmit }) => {
   const [name, setName] = useState<string>('');
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -55,16 +61,20 @@ const MyForm: React.FC = () => {
         onChangeText={setCategory}
       />
 
-            <Text style={styles.label}>Notes:</Text>
-            <TextInput
-              style={[styles.input, styles.notesInput]}
-              placeholder="Enter notes"
-              value={notes}
-              onChangeText={setNotes}
-              multiline
-            />
+{!disableNotes && ( // Conditionally render the notes section
+        <>
+          <Text style={styles.label}>Notes:</Text>
+          <TextInput
+            style={[styles.input, styles.notesInput]}
+            placeholder="Enter notes"
+            value={notes}
+            onChangeText={setNotes}
+            multiline
+          />
+        </>
+      )}
 
-      <Button title="Submit" onPress={onSubmit} />
+      {!disableSubmit && <Button title="Submit" onPress={onSubmit} />}
     </ScrollView>
   );
 };

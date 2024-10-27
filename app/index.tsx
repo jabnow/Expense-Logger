@@ -14,6 +14,9 @@ import { NavigationContainer } from "@react-navigation/native";
 
 import { Button, Text, TextInput, View } from "react-native";
 
+import { Redirect } from "expo-router";
+import RedirectHome from "./redirect";
+
 const Stack = createNativeStackNavigator();
 
 function SplashScreen() {
@@ -46,12 +49,12 @@ export default function App() {
       fallback={<Text>Loading...</Text>}
       independent={true}
     >
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="/home">
         {isSignedIn ? (
           <>
             <Stack.Screen
               name="Home"
-              component={HomeScreen}
+              component={RedirectHome}
               options={{
                 headerShown: false,
               }}

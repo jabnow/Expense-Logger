@@ -1,0 +1,33 @@
+ {/* // initialLayout={{ width: layout.width }} */}
+    
+    {/* //   <ThemedView style={styles.titleContainer}>
+    //     <ThemedText type="title">Add New Expense</ThemedText>
+    //     <HelloWave />
+    //   </ThemedView>
+    //   <Tab.Navigator
+    //     screenOptions={{
+    //       tabBarActiveTintColor: "#6200ee",
+    //       tabBarIndicatorStyle: { backgroundColor: "#6200ee" },
+    //     }}
+    //   >
+    //     <Tab.Screen name="Scan Receipt" component={TestComponent} options={{ title: "Scan Receipt" }} />
+    //     <Tab.Screen name="Upload Photo" component={SubTab2} options={{ title: "Upload Photo" }} />
+    //     <Tab.Screen name="Enter manually" component={MyForm} options={{ title: "Enter manually" }} />
+    //   </Tab.Navigator> */}
+
+    {/* // </ParallaxScrollView> */}
+
+
+    {/* // <Tab.Navigator
+    //     screenOptions={{
+    //       tabBarActiveTintColor: "#6200ee",
+    //       tabBarIndicatorStyle: { backgroundColor: "#6200ee" },
+    //     }}
+    //   >
+    //     <Tab.Screen name="Scan Receipt" component={SubTab1} options={{ title: "Scan Receipt" }} />
+    //     <Tab.Screen name="Upload Photo" component={SubTab2} options={{ title: "Upload Photo" }} />
+    //     <Tab.Screen name="Enter manually" component={MyForm} options={{ title: "Enter manually" }} />
+    //   </Tab.Navigator>
+
+
+    //////////// */}

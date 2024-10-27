@@ -28,36 +28,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="add-new"
+        name="explore"
         options={{
-          title: "Track",
+          title: "Explore",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "pencil" : "pencil-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="insights"
-        options={{
-          title: "Insights",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "analytics" : "analytics-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "person" : "person-outline"}
+              name={focused ? "code-slash" : "code-slash-outline"}
               color={color}
             />
           ),

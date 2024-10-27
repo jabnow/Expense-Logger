@@ -4,21 +4,22 @@ import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function HomeScreen() {
+export default function Insights() {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
       headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
+        <Ionicons
+          size={310}
+          name="pie-chart-outline"
+          style={styles.headerImage}
         />
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Receiptable</ThemedText>
-        <HelloWave />
+        <ThemedText type="title">Your Insights</ThemedText>
       </ThemedView>
 
       <ThemedText>Upload new purchase/receipt</ThemedText>
@@ -42,6 +43,12 @@ const styles = StyleSheet.create({
     width: 290,
     bottom: 0,
     left: 0,
+    position: "absolute",
+  },
+  headerImage: {
+    color: "#fff",
+    bottom: -90,
+    left: -35,
     position: "absolute",
   },
 });

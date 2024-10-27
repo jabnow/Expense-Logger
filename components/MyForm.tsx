@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const MyForm: React.FC = () => {
@@ -20,26 +20,15 @@ const MyForm: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.banner} onPress={() => setModalVisible(true)}>
-        <Text style={styles.bannerText}>Enter a new expense</Text>
-      </TouchableOpacity>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)} // Handle hardware back button
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.label}>Name:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter name"
-              value={name}
-              onChangeText={setName}
-            />
+    <ScrollView style={styles.container}>
+      
+      <Text style={styles.label}>Name:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter name"
+        value={name}
+        onChangeText={setName}
+      />
 
             <Text style={styles.label}>Date:</Text>
             <TouchableOpacity onPress={() => setShowDatePicker(true)}>
@@ -58,13 +47,13 @@ const MyForm: React.FC = () => {
               />
             )}
 
-            <Text style={styles.label}>Category:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter category"
-              value={category}
-              onChangeText={setCategory}
-            />
+      <Text style={styles.label}>Category:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter category"
+        value={category}
+        onChangeText={setCategory}
+      />
 
             <Text style={styles.label}>Notes:</Text>
             <TextInput
@@ -75,15 +64,8 @@ const MyForm: React.FC = () => {
               multiline
             />
 
-            <View style={styles.buttonContainer}>
-              <Button title="Cancel" onPress={() => setModalVisible(false)} color="red" />
-              <View style={styles.buttonSpacer} />
-              <Button title="Submit" onPress={onSubmit} />
-            </View>
-          </View>
-        </View>
-      </Modal>
-    </View>
+      <Button title="Submit" onPress={onSubmit} />
+    </ScrollView>
   );
 };
 
@@ -96,31 +78,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
-  },
-  banner: {
-    backgroundColor: '#E6E6FA',
-    padding: 15,
-    alignItems: 'center',
-    width: '100%',
-    top: 0,
-  },
-  bannerText: {
-    fontSize: 18,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    width: '80%',
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    elevation: 5,
   },
   input: {
     borderWidth: 1,

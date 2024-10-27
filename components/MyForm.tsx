@@ -3,17 +3,20 @@ import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const MyForm: React.FC = () => {
-  // Define state with type annotations
   const [name, setName] = useState<string>('');
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [category, setCategory] = useState<string>('');
   const [notes, setNotes] = useState<string>('');
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-  // Type the onSubmit function
   const onSubmit = (): void => {
-    // Handle form submission logic here
-    console.log({ name, date, category, notes });
+    console.log({ name, date, category, notes }); // Handle form submission logic here
+    setName('');
+    setDate(new Date());
+    setCategory('');
+    setNotes('');
+    setModalVisible(false); // Close modal after submission
   };
 
   return (
@@ -27,21 +30,22 @@ const MyForm: React.FC = () => {
         onChangeText={setName}
       />
 
-      <Text style={styles.label}>Date:</Text>
-      <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-        <Text style={styles.dateInput}>{date.toDateString()}</Text>
-      </TouchableOpacity>
-      {showDatePicker && (
-        <DateTimePicker
-          value={date}
-          mode="date"
-          display="default"
-          onChange={(event: any, selectedDate?: Date) => {
-            setShowDatePicker(false);
-            if (selectedDate) setDate(selectedDate);
-          }}
-        />
-      )}
+            <Text style={styles.label}>Date:</Text>
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <Text style={styles.dateInput}>{date.toDateString()}</Text>
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="default"
+                onChange={(event: any, selectedDate?: Date) => {
+                  const currentDate = selectedDate || date; // Use selected date or current date
+                  setShowDatePicker(false); // Close the picker after selection
+                  setDate(currentDate); // Update the date state
+                }}
+              />
+            )}
 
       <Text style={styles.label}>Category:</Text>
       <TextInput
@@ -51,21 +55,20 @@ const MyForm: React.FC = () => {
         onChangeText={setCategory}
       />
 
-      <Text style={styles.label}>Notes:</Text>
-      <TextInput
-        style={[styles.input, styles.notesInput]}
-        placeholder="Enter notes"
-        value={notes}
-        onChangeText={setNotes}
-        multiline
-      />
+            <Text style={styles.label}>Notes:</Text>
+            <TextInput
+              style={[styles.input, styles.notesInput]}
+              placeholder="Enter notes"
+              value={notes}
+              onChangeText={setNotes}
+              multiline
+            />
 
       <Button title="Submit" onPress={onSubmit} />
     </ScrollView>
   );
 };
 
-// Define styles with a StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -94,6 +97,14 @@ const styles = StyleSheet.create({
   notesInput: {
     height: 80,
     textAlignVertical: 'top',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  buttonSpacer: {
+    width: 16,
   },
 });
 

@@ -17,6 +17,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import MyForm from "@/components/MyForm";
 import UploadImage from "@/components/UploadImage";
+import Index from "../tessaract";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -93,6 +94,7 @@ const Track = () => {
         />
       </Tab.Navigator>
       <SuccessModal setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+      {image && <Index imageName={image} />} 
     </>
   );
 };

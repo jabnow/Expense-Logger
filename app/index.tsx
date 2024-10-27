@@ -27,7 +27,7 @@ function SplashScreen() {
 const getIsSignedIn = () => {
   // custom logic
   console.log("hi");
-  return false;
+  return true;
 };
 
 export default function App() {
@@ -49,7 +49,13 @@ export default function App() {
       <Stack.Navigator>
         {isSignedIn ? (
           <>
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
           </>
         ) : (
           <>

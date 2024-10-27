@@ -27,30 +27,12 @@ const UploadImage: React.FC = () => {
     }
   };
 
-  // Function to capture a photo with the camera
-  const takePhoto = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== "granted") {
-      alert("Permission to access the camera is required!");
-      return;
-    }
-
-    const result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled && result.assets && result.assets.length > 0) {
-      setImage(result.assets[0].uri);
-    }
-  };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <ThemedView style={styles.subTabContainer}>
         <View style={styles.buttonContainer}>
           <Button title="Pick an Image from Library" onPress={pickImage} />
-          <Button title="Take a Photo" onPress={takePhoto} />
         </View>
         {image && <Image source={{ uri: image }} style={styles.uploadedImage} />}
       </ThemedView>

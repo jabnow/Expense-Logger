@@ -5,11 +5,13 @@ import {
   View,
   SafeAreaView,
   Button,
+  Modal,
+  Pressable,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-
+import SuccessModal from "../../components/SuccessModal";
 import { HelloWave } from "@/components/HelloWave";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -21,6 +23,7 @@ const Tab = createMaterialTopTabNavigator();
 const Track = () => {
   const [image, setImage] = useState<string | null>(null);
   const [index, setIndex] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
   const [routes] = useState([
     { key: "scanReceipt", title: "Scan Receipt" },
     { key: "uploadPhoto", title: "Upload Photo" },
@@ -42,6 +45,7 @@ const Track = () => {
 
     if (!result.canceled && result.assets && result.assets.length > 0) {
       setImage(result.assets[0].uri);
+      setModalVisible(true);
     }
   };
 
@@ -88,6 +92,7 @@ const Track = () => {
           component={SubTab3}
         />
       </Tab.Navigator>
+      <SuccessModal setModalVisible={setModalVisible} modalVisible={modalVisible}/>
     </>
   );
 };

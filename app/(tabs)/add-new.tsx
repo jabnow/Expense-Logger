@@ -16,6 +16,7 @@ import MyForm from "@/components/MyForm";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { TabView, SceneMap } from "react-native-tab-view";
 import { useState } from "react";
+import UploadImage from "@/components/UploadImage";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -28,7 +29,7 @@ const SubTab1: React.FC = () => (
 
 const SubTab2: React.FC = () => (
   <ThemedView style={styles.subTabContainer}>
-    <ThemedText type="default">Content for Tab 2</ThemedText>
+    <UploadImage />
   </ThemedView>
 );
 

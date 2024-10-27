@@ -53,7 +53,7 @@ export default function App() {
         {isSignedIn ? (
           <>
             <Stack.Screen
-              name="Home"
+              name="home"
               component={RedirectHome}
               options={{
                 headerShown: false,

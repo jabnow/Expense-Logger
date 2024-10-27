@@ -21,6 +21,10 @@ export default function SignInScreen() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const onSubmit = (): void => {
+    console.log("hi"); // Handle form submission logic here
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
@@ -48,7 +52,10 @@ export default function SignInScreen() {
           onChangeText={setPassword}
           secureTextEntry={true}
         />
+
+        <Button title="Submit" onPress={onSubmit} />
         <Text>
+          {"\n"}
           Don't have an account yet?{" "}
           <Link to={{ screen: "SignUp" }} style={styles.link}>
             Sign Up

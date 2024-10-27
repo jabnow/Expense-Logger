@@ -1,13 +1,31 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Image, Platform } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  TextInputBase,
+} from "react-native";
 
 import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { Link } from "@react-navigation/native";
+import React, { useState } from "react";
 
 export default function SignUpScreen() {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [cpassword, setCPassword] = useState<string>("");
+
+  const onSubmit = (): void => {
+    console.log("hi"); // Handle form submission logic here
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
@@ -18,7 +36,43 @@ export default function SignUpScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Sign Up</ThemedText>
       </ThemedView>
-      <ThemedText>Your email:</ThemedText>
+      <View>
+        <Text style={styles.label}>Username:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter username"
+          value={username}
+          onChangeText={setUsername}
+        />
+
+        <Text style={styles.label}>Password:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+        />
+
+        <Text style={styles.label}>Confirm Password:</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter password"
+          value={cpassword}
+          onChangeText={setCPassword}
+          secureTextEntry={true}
+        />
+
+        <Button title="Submit" onPress={onSubmit} />
+
+        <Text>
+          {"\n"}
+          Already have an account?{" "}
+          <Link to={{ screen: "SignIn" }} style={styles.link}>
+            Sign In
+          </Link>
+        </Text>
+      </View>
     </ParallaxScrollView>
   );
 }
@@ -33,5 +87,33 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
     gap: 8,
+  },
+
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  banner: {
+    backgroundColor: "#E6E6FA", // pale purple
+    padding: 15,
+    alignItems: "center",
+    width: "100%", // Make the banner span the whole width
+    top: 0,
+  },
+  bannerText: {
+    fontSize: 18,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 8,
+    marginBottom: 16,
+    borderRadius: 4,
+  },
+  link: {
+    textDecorationLine: "underline",
   },
 });

@@ -10,11 +10,8 @@ Receiptable is a mobile app that allows users to scan receipts and documents, co
 
 To run the project, follow these steps:
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-2. Navigate to the project directory and install dependencies: ```bash npm install```
-3. Start the app using Expo: ```bash expo start```
+1. Navigate to the project directory and install dependencies: ```bash npm install```
+2. Start the app using Expo: ```bash expo start```
 
 ## Contributors 
 - Abby Wambach

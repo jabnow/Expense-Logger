@@ -38,7 +38,7 @@ const renderScene = SceneMap({
   third: SubTab3,
 });
 
-export default function HomeScreen() {
+export default function AddNew() {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([

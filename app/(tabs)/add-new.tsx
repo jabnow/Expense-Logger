@@ -54,19 +54,17 @@ export default function Track() {
 
   return (
     <>
-      <ParallaxScrollView
-        headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
-        headerImage={
-          <Ionicons size={310} name="pencil" style={styles.headerImage} />
-        }
-      >
-        <ThemedText type="title">Add New Expense</ThemedText>
-        <HelloWave />
-      </ParallaxScrollView>
+      <ThemedText style={styles.titleContainer}>
+        {"\n"}
+        {"\n"}
+        {"\n"}
+        <ThemedText type="title"> Add New Expense</ThemedText>
+        {"\n"}
+      </ThemedText>
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: "#6200ee",
-          tabBarIndicatorStyle: { backgroundColor: "#6200ee" },
+          tabBarActiveTintColor: "#66999b",
+          tabBarIndicatorStyle: { backgroundColor: "#66999b" },
         }}
       >
         <Tab.Screen

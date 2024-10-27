@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const MyForm: React.FC = () => {
@@ -17,11 +17,7 @@ const MyForm: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Banner Section */}
-      <View style={styles.banner}>
-        <Text style={styles.bannerText}>Enter a new expense</Text>
-      </View>
+    <ScrollView style={styles.container}>
       
       <Text style={styles.label}>Name:</Text>
       <TextInput
@@ -65,7 +61,7 @@ const MyForm: React.FC = () => {
       />
 
       <Button title="Submit" onPress={onSubmit} />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -79,18 +75,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
-  },
-  banner: {
-    backgroundColor: '#E6E6FA', // pale purple
-    padding: 15,
-    alignItems: 'center',
-    width: '100%', // Make the banner span the whole width
-    top: 0,
-  },
-  bannerText: {
-    fontSize: 18,
-    textAlign: 'center',
-    fontWeight: 'bold',
   },
   input: {
     borderWidth: 1,

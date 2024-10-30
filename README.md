@@ -20,5 +20,5 @@ To run the project, follow these steps:
 - Joy Wang
 
 ## Contributors 
-Technica 2024 Fintech Winner, category sponsored by T.Rowe Price
+Technica 2024 Fintech Winner, category sponsored by T.Rowe Price <br>
 https://technica-2024.devpost.com/project-gallery
